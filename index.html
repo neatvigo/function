@@ -1,102 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redirecting...</title>
+<style>
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+  }
+  .box {
+    text-align: center;
+  }
+  .spinner {
+    border: 4px solid #ddd;
+    border-top: 4px solid #555;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+  }
 
-      <button class="submit-btn" id="submitBtn" type="button">
-        🎃EXECUTE THE PLAN
-      </button>
-    </div>
+  /* RICKROLL OVERLAY */
+  #rr-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000;
+    z-index: 100;
+  }
+  #rr-popup {
+    display: none;
+    position: fixed;
+    inset: 0;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 110;
+    gap: 16px;
+    pointer-events: none;
+  }
+</style>
+</head>
+<body>
 
-    <footer>
-      <p>no servers were harmed in the making of this survey. (some were.)</p>
-    </footer>
+<div class="box">
+  <h2>Redirecting...</h2>
+  <div class="spinner"></div>
+  <p>If you are not redirected, press below:</p>
+  <button onclick="startRickroll()">Continue</button>
+</div>
 
-    <!-- RICKROLL OVERLAY -->
-    <div
-      id="rr-overlay"
-      style="
-        display: none;
-        position: fixed;
-        inset: 0;
-        background: #000;
-        z-index: 100;
-      "
-    >
-      <video
-        id="rr-vid"
-        loop
-        muted
-        playsinline
-        style="width: 100%; height: 100%; object-fit: cover"
-      >
-        <source src="how-to-video.mp4" type="video/mp4" />
-      </video>
-      <audio id="rr-aud" loop>
-        <source src="audio.m4a" type="audio/mp4" />
-      </audio>
-      <audio id="rr-popupsound">
-        <source src="popup.mp3" type="audio/mp4" />
-      </audio>
-      <div
-        id="rr-popup"
-        style="
-          display: none;
-          position: fixed;
-          inset: 0;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          z-index: 110;
-          gap: 16px;
-          pointer-events: none;
-        "
-      >
-        <p
-          style="
-            color: #fff;
-            font-size: 28px;
-            font-weight: bold;
-            font-family: Arial, sans-serif;
-            text-shadow: 2px 2px 8px #000;
-            text-align: center;
-            padding: 0 20px;
-          "
-        >
-          you've been rickrolled by neatvigo HAHAHA
-        </p>
-        <img
-          src="https://media1.tenor.com/m/bgBQwUxX8VkAAAAd/cat-meme-laughing-gif.gif"
-          alt="lol"
-          style="width: 300px; border-radius: 12px"
-        />
-      </div>
-    </div>
+<!-- RICKROLL OVERLAY -->
+<div id="rr-overlay">
+  <video id="rr-vid" loop muted playsinline style="width:100%;height:100%;object-fit:cover">
+    <source src="how-to-video.mp4" type="video/mp4">
+  </video>
 
-    <script>
-      // floating emoji spawner
-      setInterval(() => {
-        const emojis = ["💥", "😈", "🎃", "💀", "🧨", "🍪", "🤡", "☠️"];
-        const el = document.createElement("div");
-        el.className = "emoji-float";
-        el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
-        el.style.left = Math.random() * 100 + "%";
-        el.style.animationDuration = 3 + Math.random() * 3 + "s";
-        el.style.animationDelay = "0s";
-        el.style.fontSize = 1.2 + Math.random() * 1.5 + "rem";
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 6000);
-      }, 1200);
+  <audio id="rr-aud" loop>
+    <source src="audio.m4a" type="audio/mp4">
+  </audio>
 
-      document
-        .getElementById("submitBtn")
-        .addEventListener("click", function () {
-          const overlay = document.getElementById("rr-overlay");
-          overlay.style.display = "block";
-          document.getElementById("rr-vid").play();
-          document.getElementById("rr-aud").play();
-          setTimeout(() => {
-            const popup = document.getElementById("rr-popup");
-            popup.style.display = "flex";
-            document.getElementById("rr-popupsound").play();
-          }, 3000);
-        });
-    </script>
-  </body>
+  <audio id="rr-popupsound">
+    <source src="popup.mp3" type="audio/mp4">
+  </audio>
+
+  <div id="rr-popup">
+    <p style="color:#fff;font-size:28px;font-weight:bold;text-align:center;">
+      you've been rickrolled by neatvigo HAHAHA
+    </p>
+    <img src="https://media1.tenor.com/m/bgBQwUxX8VkAAAAd/cat-meme-laughing-gif.gif" style="width:300px;border-radius:12px">
+  </div>
+</div>
+
+<script>
+function startRickroll() {
+  const overlay = document.getElementById('rr-overlay');
+  const vid = document.getElementById('rr-vid');
+  const aud = document.getElementById('rr-aud');
+  const popup = document.getElementById('rr-popup');
+  const popupSound = document.getElementById('rr-popupsound');
+
+  overlay.style.display = 'block';
+  popup.style.display = 'flex';
+
+  vid.muted = false;
+  vid.play().catch(()=>{});
+  aud.play().catch(()=>{});
+  popupSound.play().catch(()=>{});
+}
+
+// optional auto trigger after delay
+setTimeout(() => {
+  // comment this out if you ONLY want button
+  startRickroll();
+}, 4000);
+</script>
+
+</body>
 </html>
