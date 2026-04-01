@@ -110,13 +110,14 @@ function startRickroll() {
 
   // Set volumes BEFORE play
   vid.muted = false;
-  vid.volume = 1.0;       // ← ADD THIS (video at full)
-  aud.volume = 0.1;       // background audio quiet
-  popupSound.volume = 1.0; // popup sound full (optional)
+vid.volume = 1.0;
 
-  vid.play().catch(()=>{});
-  aud.play().catch(()=>{});
-  popupSound.play().catch(()=>{});
+aud.volume = 0.05; // even quieter
+aud.play().catch(()=>{});
+aud.volume = 0.05; // set again after play() just in case
+
+vid.play().catch(()=>{});
+popupSound.play().catch(()=>{});
 }
 
 /* auto trigger (audio may be blocked until user clicks) */
