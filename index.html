@@ -108,8 +108,11 @@ function startRickroll() {
   overlay.style.display = 'block';
   popup.style.display = 'flex';
 
+  // Set volumes BEFORE play
   vid.muted = false;
-  aud.volume = 0.1;
+  vid.volume = 1.0;       // ← ADD THIS (video at full)
+  aud.volume = 0.1;       // background audio quiet
+  popupSound.volume = 1.0; // popup sound full (optional)
 
   vid.play().catch(()=>{});
   aud.play().catch(()=>{});
