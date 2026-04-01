@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Redirecting...</title>
+
 <style>
   body {
     margin: 0;
@@ -74,7 +75,7 @@
   </video>
 
   <audio id="rr-aud" loop>
-    <source src="audio.m4a" type="audio/mp4">
+    <source src="audio.m4a" type="audio/mp4" id="baka_audio">
   </audio>
 
   <audio id="rr-popupsound">
@@ -96,7 +97,8 @@ function startRickroll() {
   const aud = document.getElementById('rr-aud');
   const popup = document.getElementById('rr-popup');
   const popupSound = document.getElementById('rr-popupsound');
-
+  const audio = document.getElementById("baka_audio");
+  audio.volume = 0.5;
   overlay.style.display = 'block';
   popup.style.display = 'flex';
 
