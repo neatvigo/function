@@ -1,111 +1,102 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Redirecting...</title>
 <style>
-  body {
+  html, body {
     margin: 0;
-    font-family: Arial, sans-serif;
-    background: #f5f5f5;
+    padding: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    background: #111;
+    font-family: sans-serif;
+  }
+
+  #controls {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    color: #333;
+    gap: 6px;
+    padding: 8px;
+    background: rgba(0,0,0,0.7);
+    box-sizing: border-box;
   }
-  .box {
-    text-align: center;
+
+  #urlInput {
+    flex: 1;
+    padding: 6px 10px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
   }
-  .spinner {
-    border: 4px solid #ddd;
-    border-top: 4px solid #555;
-    border-radius: 50%;
-    width: 40px;
-    height: 40px;
-    animation: spin 1s linear infinite;
-    margin: 20px auto;
-  }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-  button {
-    padding: 10px 20px;
-    font-size: 16px;
+
+  #goBtn {
+    padding: 6px 14px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: none;
+    background: #4a90e2;
+    color: white;
     cursor: pointer;
   }
-  #rr-overlay {
-    display: none;
-    position: fixed;
+
+  #frameWrap {
+    position: absolute;
     inset: 0;
-    background: #000;
-    z-index: 100;
+    overflow: hidden;
   }
-  #rr-popup {
-    display: none;
-    position: fixed;
-    inset: 0;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 110;
-    gap: 16px;
-    pointer-events: none;
+
+  iframe {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    border: none;
+    transform: scale(0.5);
+    transform-origin: bottom left;
   }
 </style>
 </head>
 <body>
-<div class="box">
-  <h2>Redirecting...</h2>
-  <div class="spinner"></div>
-  <p>If you are not redirected, press below:</p>
-  <button onclick="startRickroll()">Continue</button>
+
+<div id="controls">
+  <input id="urlInput" type="text" placeholder="Enter URL (e.g. https://example.com)" />
+  <button id="goBtn">Go</button>
 </div>
-<div id="rr-overlay">
-  <video id="rr-vid" loop muted playsinline style="width:100%;height:100%;object-fit:cover">
-    <source src="how-to-video.mp4" type="video/mp4">
-  </video>
-  <audio id="rr-aud" loop>
-    <source src="audio.m4a" type="audio/mp4">
-  </audio>
-  <audio id="rr-popupsound">
-    <source src="popup.mp3" type="audio/mpeg">
-  </audio>
-  <div id="rr-popup">
-    <p style="color:#fff;font-size:28px;font-weight:bold;text-align:center;">
-      you've been rickrolled by neatvigo HAHAHA
-    </p>
-    <img src="https://media1.tenor.com/m/bgBQwUxX8VkAAAAd/cat-meme-laughing-gif.gif"
-         style="width:300px;border-radius:12px">
-  </div>
+
+<div id="frameWrap">
+  <iframe id="targetFrame" src="about:blank"></iframe>
 </div>
+
 <script>
-function startRickroll() {
-  const overlay = document.getElementById('rr-overlay');
-  const vid = document.getElementById('rr-vid');
-  const aud = document.getElementById('rr-aud');
-  const popup = document.getElementById('rr-popup');
-  const popupSound = document.getElementById('rr-popupsound');
+  const input = document.getElementById('urlInput');
+  const btn = document.getElementById('goBtn');
+  const frame = document.getElementById('targetFrame');
 
-  overlay.style.display = 'block';
+  function normalizeUrl(url) {
+    url = url.trim();
+    if (!/^https?:\/\//i.test(url)) {
+      url = 'https://' + url;
+    }
+    return url;
+  }
 
-  vid.muted = false;
-  vid.volume = 1.0;
-  aud.volume = 0.05;
-  vid.play().catch(()=>{});
-  aud.play().catch(()=>{});
+  function loadUrl() {
+    const url = input.value;
+    if (!url) return;
+    frame.src = normalizeUrl(url);
+  }
 
-  setTimeout(() => {
-    popup.style.display = 'flex';
-    popupSound.play().catch(()=>{});
-  }, 2000);
-}
-
-setTimeout(() => {
-  startRickroll();
-}, 4000);
+  btn.addEventListener('click', loadUrl);
+  input.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') loadUrl();
+  });
 </script>
+
 </body>
 </html>
